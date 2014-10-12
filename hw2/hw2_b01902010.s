@@ -74,7 +74,7 @@ main:    #start of your program
 	beq	$s3, '-', subtraction		# operator = '-'
 	beq	$s3, '*', multiplication	# operator = '*'
 	beq	$s3, '/', division		# operator = '/'
-	j	exit				# exit if no match
+	j	err_exit			# exit with error if no match
 
 addition:
 	add	$s4, $s1, $s2	# $s4 <= $s1 + $s2
@@ -88,7 +88,7 @@ multiplication:
 	j	result
 
 division:
-	beq	$s2, $zero, exit	# check division by zero, exit if true
+	beq	$s2, $zero, err_exit	# check division by zero, exit with error if true
 	div	$s4, $s1, $s2
 	j	result
 
@@ -166,6 +166,12 @@ ret:
 # exit
 exit:
 	li	$v0, 10
+	syscall
+
+# exit with error
+err_exit:
+	li	$v0, 17			# exit2
+	li	$a0, 1
 	syscall
 
 

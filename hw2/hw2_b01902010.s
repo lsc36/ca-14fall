@@ -7,8 +7,6 @@ operator:
 	.word	0
 output:
 	.word	0
-
-# TODO : change the file name/path to access the files
 file_in:
 	.asciiz	"in.txt"
 file_out:
@@ -64,7 +62,7 @@ main:    #start of your program
 	bal	atoi
 	move	$s2, $v0		# $s2 <= atoi(input2)
 
-	la	$s3, operator		# $s3 <= operator
+	lw	$s3, operator		# $s3 <= operator
 
 ################################ write your code below ################################
 # Inputs are ($s1: input1, $s2: input2, $s3: operator's ASCII)
@@ -72,20 +70,27 @@ main:    #start of your program
 
 
 #STEP4 integer operations
-# TODO: operation selector
-#      hint: you could write multiple "if (operator==??)then(...)" structures below
+	beq	$s3, '+', addition		# operator = '+'
+	beq	$s3, '-', subtraction		# operator = '-'
+	beq	$s3, '*', multiplication	# operator = '*'
+	beq	$s3, '/', division		# operator = '/'
+	j	exit				# exit if no match
 
 addition:
 	add	$s4, $s1, $s2	# $s4 <= $s1 + $s2
-	jr result
-substraction:
-	# operation
+	j	result
+subtraction:
+	sub	$s4, $s1, $s2
+	j	result
 
 multiplication:
-	# operation
+	mul	$s4, $s1, $s2
+	j	result
 
 division:
-	# operation
+	beq	$s2, $zero, exit	# check division by zero, exit if true
+	div	$s4, $s1, $s2
+	j	result
 
 
 #STEP5: turn the integer into pritable char
@@ -144,7 +149,7 @@ ret:
 
 
 # exit
-
+exit:
 	li	$v0, 10
 	syscall
 

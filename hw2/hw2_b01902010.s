@@ -99,31 +99,33 @@ result:
 	sw	$s4, output	# output <= $s4
 	move	$a0, $s4
 	bal	itoa		# itoa($s4)
+	sw	$v0, output_ascii	# output_ascii <= itoa($4)
 	jr	ret
 
 itoa:
 	# Input: ($a0 = input integer)
 	# Output: ( output_ascii )
-	move	$t4, $a0
-	div	$t4, $t4, 10
+	li	$v0, 0		# reset $v0
+	div	$a0, $a0, 10
 	mfhi	$t0		# 4th digit
 	addi	$t0, $t0, 48
-	div	$t4, $t4, 10
-	mfhi	$t1		# 3rd digit
-	addi	$t1, $t1, 48
-	div	$t4, $t4, 10
-	mfhi	$t2		# 2nd digit
-	addi	$t2, $t2, 48
-	div	$t4, $t4, 10
-	mfhi	$t3		# 1st digit
-	addi	$t3, $t3, 48
+	sll	$t0, $t0, 24	# shift 3 bytes
+	or	$v0, $v0, $t0
+	div	$a0, $a0, 10
+	mfhi	$t0		# 3rd digit
+	addi	$t0, $t0, 48
+	sll	$t0, $t0, 16	# shift 2 bytes
+	or	$v0, $v0, $t0
+	div	$a0, $a0, 10
+	mfhi	$t0		# 2nd digit
+	addi	$t0, $t0, 48
+	sll	$t0, $t0, 8	# shift 1 byte
+	or	$v0, $v0, $t0
+	div	$a0, $a0, 10
+	mfhi	$t0		# 1st digit
+	addi	$t0, $t0, 48
+	or	$v0, $v0, $t0
 
-	# copy digits to output_ascii
-	la	$t4, output_ascii
-	sb	$t0, 3($t4)	# output_ascii[3] = $t0
-	sb	$t1, 2($t4)	# output_ascii[2] = $t1
-	sb	$t2, 1($t4)	# output_ascii[1] = $t2
-	sb	$t3, 0($t4)	# output_ascii[0] = $t3
 	jr	$ra		# return
 
 ################################ write your code above ################################

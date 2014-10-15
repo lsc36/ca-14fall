@@ -7,12 +7,10 @@ comma:
 	.word	0
 output:
 	.word	0
-
-# TODO : change the file path to access the files (IN ABSOLUTE PATH)
 file_in:
-	.asciiz	"C:\ABSOLUTE\PATH\TO\DIR\in.txt"
+	.asciiz	"/home/lsc36/103-1/ca/hw3/in.txt"
 file_out:
-	.asciiz	"C:\ABSOLUTE\PATH\TO\DIR\out.txt"
+	.asciiz	"/home/lsc36/103-1/ca/hw3/b01902010_out.txt"
 
 # the following data is only for sample demonstration
 output_ascii:
@@ -26,7 +24,7 @@ main:    #start of your program
 
 	li	$v0, 13			# 13 = open file
 	la	$a0, file_in		# $a2 <= filepath
-	li	$a1, 0x4000		# $a1 <= flags = 0x4000
+	li	$a1, 0x0		# $a1 <= flags = 0x0 (O_RDONLY)
 	li	$a2, 0			# $a2 <= mode = 0
 	syscall				# $v0 <= $s0 = fd
 	move	$s0, $v0		# store fd_in in $s0, fd_in is the file descriptor just returned by syscall
@@ -102,8 +100,8 @@ ret:
 
 	li	$v0, 13			# 13 = open file
 	la	$a0, file_out		# $a2 <= filepath
-	li	$a1, 0x4301		# $a1 <= flags = 0x4301
-	li	$a2, 0644		# $a2 <= mode = 0
+	li	$a1, 0x41		# $a1 <= flags = 0x41 (O_WRONLY | O_CREAT)
+	li	$a2, 0x1a4		# $a2 <= mode = 0644
 	syscall				# $v0 <= $s0 = fd_out
 	move	$s4, $v0		# store fd_out in $s4
 

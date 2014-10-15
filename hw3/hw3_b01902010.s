@@ -14,7 +14,7 @@ file_out:
 
 # the following data is only for sample demonstration
 output_ascii:
-	.byte	'0', '0', '3', '6'
+	.word	0
 
 .text
 main:    #start of your program
@@ -79,16 +79,31 @@ result:
 	sw	$s3, output	# output <= $s3
 	move	$a0, $s3
 	bal	itoa		# itoa($s3)
-
-	# TODO: store return array to output_ascii
-
 	jr	ret
 
 itoa:
 	# Input: ($a0 = input integer)
 	# Output: ( output_ascii )
-	# TODO: (you should turn an integer into a pritable char with the right ASCII code to output_ascii)
+	move	$t4, $a0
+	div	$t4, $t4, 10
+	mfhi	$t0		# 4th digit
+	addi	$t0, $t0, 48
+	div	$t4, $t4, 10
+	mfhi	$t1		# 3rd digit
+	addi	$t1, $t1, 48
+	div	$t4, $t4, 10
+	mfhi	$t2		# 2nd digit
+	addi	$t2, $t2, 48
+	div	$t4, $t4, 10
+	mfhi	$t3		# 1st digit
+	addi	$t3, $t3, 48
 
+	# copy digits to output_ascii
+	la	$t4, output_ascii
+	sb	$t0, 3($t4)	# output_ascii[3] = $t0
+	sb	$t1, 2($t4)	# output_ascii[2] = $t1
+	sb	$t2, 1($t4)	# output_ascii[1] = $t2
+	sb	$t3, 0($t4)	# output_ascii[0] = $t3
 	jr	$ra		# return
 
 ################################ write your code above ################################

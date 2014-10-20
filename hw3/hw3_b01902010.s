@@ -68,6 +68,31 @@ main:    #start of your program
 
 
 # STEP4: implement recursive function to solve the equation
+	move	$a0, $s1
+	bal	calc
+	move	$s3, $v0
+	j	result
+
+# calc($a0: n) = 2 * calc(n / 2) + n * c, n > 1
+#	       | c, n = 1
+calc:
+	li	$t0, 1
+	beq	$a0, $t0, .basecase	# goto base case if n = 1
+	srl	$a0, $a0, 1		# n = n / 2 (as argument for recursion)
+	addiu	$sp, $sp, -4		# allocate stack for return address
+	sw	$ra, 0($sp)
+	bal	calc			# result = calc(n / 2)
+	lw	$ra, 0($sp)
+	addiu	$sp, $sp, 4		# free stack
+	sll	$v0, $v0, 1		# result = result * 2
+	sll	$a0, $a0, 1		# n = n * 2 (original n)
+	mult	$a0, $s2
+	mflo	$t0			# $t0 = n * c
+	add	$v0, $v0, $t0		# result = result + n * c
+	jr	$ra
+.basecase:
+	move	$v0, $s2
+	jr	$ra
 
 
 

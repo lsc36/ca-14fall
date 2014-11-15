@@ -53,23 +53,19 @@ Registers Registers(
     .RTdata_o   ()
 );
 
-/*
 MUX5 MUX_RegDst(
     .data1_i    (),
     .data2_i    (),
     .select_i   (),
     .data_o     ()
 );
-*/
 
-/*
 MUX32 MUX_ALUSrc(
     .data1_i    (),
     .data2_i    (),
     .select_i   (),
     .data_o     ()
 );
-*/
 
 /*
 Signed_Extend Signed_Extend(

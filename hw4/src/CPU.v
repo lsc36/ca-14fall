@@ -12,6 +12,7 @@ input               start_i;
 
 wire    [31:0]      pc_i, pc_o;
 wire    [31:0]      instr_o;
+wire    [31:0]      imm32;
 
 /*
 Control Control(
@@ -62,17 +63,15 @@ MUX5 MUX_RegDst(
 
 MUX32 MUX_ALUSrc(
     .data1_i    (),
-    .data2_i    (),
+    .data2_i    (imm32),
     .select_i   (),
     .data_o     ()
 );
 
-/*
 Signed_Extend Signed_Extend(
-    .data_i     (),
-    .data_o     ()
+    .data_i     (instr_o[15:0]),
+    .data_o     (imm32)
 );
-*/
 
 /*
 ALU ALU(

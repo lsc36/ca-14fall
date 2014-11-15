@@ -23,13 +23,11 @@ Control Control(
 );
 */
 
-/*
 Adder Add_PC(
-    .data1_in   (),
-    .data2_in   (),
-    .data_o     ()
+    .data1_in   (pc_o),
+    .data2_in   (32'h4),
+    .data_o     (pc_i)
 );
-*/
 
 PC PC(
     .clk_i      (clk_i),

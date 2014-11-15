@@ -12,7 +12,11 @@ input               start_i;
 
 wire    [31:0]      pc_i, pc_o;
 wire    [31:0]      instr_o;
+wire    [4:0]       regDst_o;
 wire    [31:0]      imm32;
+wire    [31:0]      rsData_o;
+wire    [31:0]      rtData_o;
+wire    [31:0]      aluSrc_o;
 wire    [2:0]       aluCtrl_o;
 wire    [31:0]      alu_o;
 wire                ctrl_RegDst;
@@ -53,25 +57,25 @@ Registers Registers(
     .clk_i      (clk_i),
     .RSaddr_i   (instr_o[25:21]),
     .RTaddr_i   (instr_o[20:16]),
-    .RDaddr_i   (instr_o[15:11]),
+    .RDaddr_i   (regDst_o),
     .RDdata_i   (alu_o),
     .RegWrite_i (ctrl_RegWrite),
-    .RSdata_o   (),
-    .RTdata_o   ()
+    .RSdata_o   (rsData_o),
+    .RTdata_o   (rtData_o)
 );
 
 MUX5 MUX_RegDst(
-    .data1_i    (),
-    .data2_i    (),
+    .data1_i    (instr_o[20:16]),
+    .data2_i    (instr_o[15:11]),
     .select_i   (ctrl_RegDst),
-    .data_o     ()
+    .data_o     (regDst_o)
 );
 
 MUX32 MUX_ALUSrc(
-    .data1_i    (),
+    .data1_i    (rtData_o),
     .data2_i    (imm32),
     .select_i   (ctrl_ALUSrc),
-    .data_o     ()
+    .data_o     (aluSrc_o)
 );
 
 Signed_Extend Signed_Extend(
@@ -81,8 +85,8 @@ Signed_Extend Signed_Extend(
 
 /*
 ALU ALU(
-    .data1_i    (),
-    .data2_i    (),
+    .data1_i    (rsData_o),
+    .data2_i    (aluSrc_o),
     .ALUCtrl_i  (aluCtrl_o),
     .data_o     (alu_o),
     .Zero_o     ()

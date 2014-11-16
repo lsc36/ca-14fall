@@ -24,7 +24,6 @@ wire    [1:0]       ctrl_ALUOp;
 wire                ctrl_ALUSrc;
 wire                ctrl_RegWrite;
 
-/*
 Control Control(
     .Op_i       (pc_o[31:26]),
     .RegDst_o   (ctrl_RegDst),
@@ -32,7 +31,6 @@ Control Control(
     .ALUSrc_o   (ctrl_ALUSrc),
     .RegWrite_o (ctrl_RegWrite)
 );
-*/
 
 Adder Add_PC(
     .data1_in   (pc_o),

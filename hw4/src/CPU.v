@@ -91,13 +91,11 @@ ALU ALU(
 );
 */
 
-/*
 ALU_Control ALU_Control(
     .funct_i    (instr_o[5:0]),
     .ALUOp_i    (ctrl_ALUOp),
     .ALUCtrl_o  (aluCtrl_o)
 );
-*/
 
 endmodule
 

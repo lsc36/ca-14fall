@@ -81,7 +81,6 @@ Signed_Extend Signed_Extend(
     .data_o     (imm32)
 );
 
-/*
 ALU ALU(
     .data1_i    (rsData_o),
     .data2_i    (aluSrc_o),
@@ -89,7 +88,6 @@ ALU ALU(
     .data_o     (alu_o),
     .Zero_o     ()
 );
-*/
 
 ALU_Control ALU_Control(
     .funct_i    (instr_o[5:0]),

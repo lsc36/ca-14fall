@@ -25,7 +25,7 @@ wire                ctrl_ALUSrc;
 wire                ctrl_RegWrite;
 
 Control Control(
-    .Op_i       (pc_o[31:26]),
+    .Op_i       (instr_o[31:26]),
     .RegDst_o   (ctrl_RegDst),
     .ALUOp_o    (ctrl_ALUOp),
     .ALUSrc_o   (ctrl_ALUSrc),

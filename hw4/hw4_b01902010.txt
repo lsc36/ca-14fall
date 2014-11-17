@@ -1,0 +1,7 @@
+Computer Architecture HW4
+Author: B01902010 李紹詮
+
+Runs with iverilog/vvp under Ubuntu 14.10 (Linux 3.16.0-24-generic).
+To compile and run:
+    cd src
+    make && make run

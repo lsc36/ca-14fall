@@ -116,5 +116,118 @@ HazardDetection HazardDetection(
     .ID_EX_MemRead_i    ()
 );
 
+FW FW
+(
+    .forward_MUX6   (),
+    .forward_MUX7   (),
+    .IDEX_rt        (),
+    .IDEX_rs        (),
+    .EXMEM_rd       (),
+    .EXMEM_write    (),
+    .MEMWB_rd       (),
+    .MEMWB_write    ()
+);
+
+IF_ID IF_ID
+(
+    .HD_i(),
+    .Add_pc_i(),
+    .Instruction_Memory_i(),
+    .Flush_i(),
+    .instr_o(),
+    .addr_o()
+);
+
+ID_EX ID_EX
+(
+    .clk(),
+    .mux8_i(),
+    .addr_i(),
+    .data1_i(),
+    .data2_i(),
+    .Sign_extend_i(),
+    .instr_i(),
+    .EX_MEM_WB_o(),
+    .EX_MEM_M_o(),
+    .ALUSrc_o(),
+    .ALUOp_o(),
+    .RegDst_o(),
+    .mux6_o(),
+    .mux7_o(),
+    .mux4_o(),
+    .ALU_control_o(),
+    .FW_o1(),
+    .FW_o2(),
+    .mux3_o1(),
+    .mux3_o2()
+);
+
+EX_MEM EX_MEM
+(
+    .clk(),
+    .wb(),
+    .m(),
+    .in1(),
+    .in2(),
+    .in3(),
+    .wb_out(),
+    .mem_read(),
+    .mem_write(),
+    .in1_out(),
+    .in2_out(),
+    .in3_out()
+);
+
+MEM_WB MEM_WB
+(
+    .clk(),
+    .wb(),
+    .in1(),
+    .in2(),
+    .in3(),
+    .reg_write(),
+    .mem_to_reg(),
+    .in1_out(),
+    .in2_out(),
+    .in3_out()
+);
+
+MUX5 mux3(
+    .data_o     (),
+    .data1_i    (),
+    .data2_i    (),
+    .select_i   ()
+);
+
+MUX32 mux4(
+    .data_o     (),
+    .data1_i    (),
+    .data2_i    (),
+    .select_i   ()
+);
+
+MUX32 mux5(
+    .data_o     (),
+    .data1_i    (),
+    .data2_i    (),
+    .select_i   ()
+);
+
+MUX32_3 mux6(
+    .data_o     (),
+    .data1_i    (),
+    .data2_i    (),
+    .data3_i    (),
+    .select_i   ()
+);
+
+MUX32_3 mux7(
+    .data_o     (),
+    .data1_i    (),
+    .data2_i    (),
+    .data3_i    (),
+    .select_i   ()
+);
+
 endmodule
 

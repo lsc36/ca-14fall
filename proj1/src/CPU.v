@@ -250,8 +250,8 @@ MUX32 mux4(
 
 MUX32 mux5(
     .data_o     (mux5_out),
-    .data1_i    (MEM_WB.in1_out),
-    .data2_i    (MEM_WB.in2_out),
+    .data1_i    (MEM_WB.in2_out),
+    .data2_i    (MEM_WB.in1_out),
     .select_i   (MEM_WB.mem_to_reg)
 );
 

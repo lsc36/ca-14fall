@@ -103,5 +103,14 @@ ALU_Control ALU_Control(
     .ALUCtrl_o  (aluCtrl_o)
 );
 
+HazardDetection HazardDetection(
+    .mux8_o             (),
+    .Flush_o            (),
+    .IF_ID_rs_i         (),
+    .IF_ID_rt_i         (),
+    .ID_EX_rt_i         (),
+    .ID_EX_memread_i    ()
+);
+
 endmodule
 

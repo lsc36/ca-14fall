@@ -29,7 +29,12 @@ Control Control(
     .RegDst_o   (ctrl_RegDst),
     .ALUOp_o    (ctrl_ALUOp),
     .ALUSrc_o   (ctrl_ALUSrc),
-    .RegWrite_o (ctrl_RegWrite)
+    .MemRead_o  (),
+    .MemWrite_o (),
+    .RegWrite_o (ctrl_RegWrite),
+    .MemToReg_o (),
+    .Jump_o     (),
+    .Branch_o   ()
 );
 
 Adder Add_PC(

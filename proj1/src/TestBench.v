@@ -75,8 +75,8 @@ $fdisplay(outfile, "Control: %b jump: %d branch: %d", CPU.ctrl[7:0], CPU.Control
 $fdisplay(outfile, "ID_EX:");
 $fdisplay(outfile, "RegDst = %d, ALUSrc = %d , mux6_out = %d, mux7_out = %d, mux4_out = %d, mux3_out = %b, ALU_out = %d", CPU.ID_EX.RegDst_o, CPU.ID_EX.ALUSrc_o, CPU.mux6.data_o, CPU.mux7.data_o, CPU.mux4.data_o, CPU.mux3.data_o, CPU.alu_o);
 $fdisplay(outfile, "Fwd: mux6 = %d, mux7 = %d, IDEX_rs = %d, IDEX_rt = %d, EXMEM_rd = %d, MEMWB_rd = %d", CPU.FW.forward_MUX6, CPU.FW.forward_MUX7, CPU.FW.IDEX_rs, CPU.FW.IDEX_rt, CPU.FW.EXMEM_rd, CPU.FW.MEMWB_rd);
-$fdisplay(outfile, "EX_MEM:");
-$fdisplay(outfile, "");
+$fdisplay(outfile, "EX_MEM: wb = %b, MemRead = %b, MemWrite = %b", CPU.EX_MEM.wb_out, CPU.EX_MEM.mem_read, CPU.EX_MEM.mem_write);
+$fdisplay(outfile, "MEM_WB: RegWrite = %b, MemToReg = %b", CPU.MEM_WB.reg_write, CPU.MEM_WB.mem_to_reg);
 
 $fdisplay(outfile, "");
 

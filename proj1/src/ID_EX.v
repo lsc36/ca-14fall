@@ -22,14 +22,15 @@ module ID_EX
     mux3_o2
 );
 
+input           clk;
 input    [31:0]    mux8_i;
 input   [31:0]  addr_i;
 input   [31:0]  data1_i;
 input   [31:0]  data2_i;
 input   [31:0]  Sign_extend_i;
-input   [14:0]  instr_i;
-output          EX_MEM_WB_o;
-output          EX_MEM_M_o;
+input   [31:0]  instr_i;
+output  [1:0]   EX_MEM_WB_o;
+output  [1:0]   EX_MEM_M_o;
 output          ALUSrc_o;
 output    [1:0]    ALUOp_o;
 output            RegDst_o;
@@ -42,8 +43,8 @@ output    [4:0]    FW_o2;
 output    [4:0]    mux3_o1;
 output    [4:0]    mux3_o2;
 
-reg                  EX_MEM_WB_o;
-reg              EX_MEM_M_o;
+reg       [1:0]      EX_MEM_WB_o;
+reg       [1:0]  EX_MEM_M_o;
 reg              ALUSrc_o;
 reg        [1:0]    ALUOp_o;
 reg                RegDst_o;
@@ -57,19 +58,19 @@ reg        [4:0]    mux3_o1;
 reg        [4:0]    mux3_o2;
 
 always@(posedge clk) begin
-    EX_MEM_WB_o <=    mux8_i[7:6];
-    EX_MEM_M_o     <=    mux8_i[5:4];
-    ALUSrc_o    <=    mux8_i[3];
-    ALUOp_o        <=    mux8_i[2:1];
-    RegDst_o    <=    mux8_i[0];
+    EX_MEM_WB_o <=    mux8_i[1:0];
+    EX_MEM_M_o     <=    mux8_i[3:2];
+    ALUSrc_o    <=    mux8_i[4];
+    ALUOp_o        <=    mux8_i[6:5];
+    RegDst_o    <=    mux8_i[7];
     mux6_o        <=    data1_i;
     mux7_o        <=    data2_i;
     mux4_o        <=    Sign_extend_i;
-    ALU_Control_o    <=    Sign_extend_i;
-    FW_o1        <=    instr[14:10];
-    FW_o2        <=    instr[9:5];
-    mux3_o1        <=    instr[9:5];
-    mux3_o2        <=    instr[4:0];
+    ALU_control_o    <=    Sign_extend_i;
+    FW_o1        <=    instr_i[25:21];
+    FW_o2        <=    instr_i[20:16];
+    mux3_o1        <=    instr_i[20:16];
+    mux3_o2        <=    instr_i[15:11];
 end
 
 endmodule

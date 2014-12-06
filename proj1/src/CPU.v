@@ -98,7 +98,7 @@ Registers Registers(
 );
 
 Signed_Extend Signed_Extend(
-    .data_i     (instr_o[15:0]),
+    .data_i     (IF_ID_instr[15:0]),
     .data_o     (imm32)
 );
 

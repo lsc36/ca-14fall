@@ -29,6 +29,15 @@ reg     [1:0]   wb_out;
 reg     [31:0]  in1_out,in2_out;
 reg     [4:0]   in3_out;
 
+initial begin
+    mem_read <= 0;
+    mem_write <= 0;
+    wb_out <= 0;
+    in1_out <= 0;
+    in2_out <= 0;
+    in3_out <= 0;
+end
+
 always @( posedge clk ) begin
     //m_out <= m;
     mem_read  <= (m & 2'b10) ? 1'b1 : 1'b0;

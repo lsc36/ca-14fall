@@ -57,20 +57,36 @@ reg        [4:0]    FW_o2;
 reg        [4:0]    mux3_o1;
 reg        [4:0]    mux3_o2;
 
+initial begin
+    EX_MEM_WB_o <= 0;
+    EX_MEM_M_o <= 0;
+    ALUSrc_o <= 0;
+    ALUOp_o <= 0;
+    RegDst_o <= 0;
+    mux6_o <= 0;
+    mux7_o <= 0;
+    mux4_o <= 0;
+    ALU_control_o <= 0;
+    FW_o1 <= 0;
+    FW_o2 <= 0;
+    mux3_o1 <= 0;
+    mux3_o2 <= 0;
+end
+
 always@(posedge clk) begin
-    EX_MEM_WB_o <=    mux8_i[1:0];
-    EX_MEM_M_o     <=    mux8_i[3:2];
-    ALUSrc_o    <=    mux8_i[4];
-    ALUOp_o        <=    mux8_i[6:5];
-    RegDst_o    <=    mux8_i[7];
-    mux6_o        <=    data1_i;
-    mux7_o        <=    data2_i;
-    mux4_o        <=    Sign_extend_i;
-    ALU_control_o    <=    Sign_extend_i;
-    FW_o1        <=    instr_i[25:21];
-    FW_o2        <=    instr_i[20:16];
-    mux3_o1        <=    instr_i[20:16];
-    mux3_o2        <=    instr_i[15:11];
+    EX_MEM_WB_o <= mux8_i[1:0];
+    EX_MEM_M_o <= mux8_i[3:2];
+    ALUSrc_o <= mux8_i[4];
+    ALUOp_o <= mux8_i[6:5];
+    RegDst_o <= mux8_i[7];
+    mux6_o <= data1_i;
+    mux7_o <= data2_i;
+    mux4_o <= Sign_extend_i;
+    ALU_control_o <= Sign_extend_i;
+    FW_o1 <= instr_i[25:21];
+    FW_o2 <= instr_i[20:16];
+    mux3_o1 <= instr_i[20:16];
+    mux3_o2 <= instr_i[15:11];
 end
 
 endmodule

@@ -22,6 +22,11 @@ output    [31:0]    addr_o;
 reg     [31:0]  instr_o;
 reg        [31:0]    addr_o;
 
+initial begin
+    instr_o <= 0;
+    addr_o <= 0;
+end
+
 always@(posedge clk) begin
     if(HD_i == 1 | Flush1_i | Flush2_i)
     begin

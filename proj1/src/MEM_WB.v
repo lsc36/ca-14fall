@@ -25,6 +25,14 @@ reg             reg_write, mem_to_reg;
 reg     [31:0]  in1_out,in2_out;
 reg     [4:0]   in3_out;
 
+initial begin
+    reg_write <= 0;
+    mem_to_reg <= 0;
+    in1_out <= 0;
+    in2_out <= 0;
+    in3_out <= 0;
+end
+
 always @( posedge clk ) begin
     //m_out <= m;
     reg_write  <= (wb & 2'b10) ? 1'b1 : 1'b0;

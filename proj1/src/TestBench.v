@@ -45,7 +45,7 @@ initial begin
     // Set Input n into data memory at 0x00
     CPU.Data_Memory.memory[0] = 8'h5;       // n = 5 for example
 
-    Clk = 0;
+    Clk = 1;
     Reset = 0;
     Start = 0;
 
@@ -66,11 +66,13 @@ always@(posedge Clk) begin
 $fdisplay(outfile, "Add_PC_o = %d, mux1 = %d, mux2 = %d, bubble_o = %d", CPU.Add_PC.data_o, CPU.mux1.data_o, CPU.mux2.data_o, CPU.bubble_o);
 $fdisplay(outfile, "hazard: %x %x %x %x", CPU.HazardDetection.IF_ID_rs_i, CPU.HazardDetection.IF_ID_rt_i, CPU.HazardDetection.ID_EX_rt_i, CPU.HazardDetection.ID_EX_MemRead_i);
 $fdisplay(outfile, "IF_ID:");
-$fdisplay(outfile, "addr = %b, rs = %x, rt = %x", CPU.IF_ID.instr_o, CPU.rsData_o, CPU.rtData_o);
+$fdisplay(outfile, "instr = %b, rs = %x, rt = %x", CPU.IF_ID.instr_o, CPU.rsData_o, CPU.rtData_o);
 $fdisplay(outfile, "mux8_out = %b", CPU.mux8.data_o);
+$fdisplay(outfile, "imm32 = %b", CPU.imm32);
 $fdisplay(outfile, "Control: %b jump: %d branch: %d", CPU.ctrl[7:0], CPU.Control.Jump_o, CPU.Control.Branch_o);
 $fdisplay(outfile, "ID_EX:");
-$fdisplay(outfile, "RegDst = %d, ALUSrc = %d, mux6_out = %x, mux7_out = %x, mux3_out = %x", CPU.mux3.select_i, CPU.mux4.select_i, CPU.mux6.data_o, CPU.mux7.data_o, CPU.mux3.data_o);
+$fdisplay(outfile, "RegDst = %d, ALUSrc = %d , mux6_out = %x, mux7_out = %x, mux3_out = %x", CPU.ID_EX.RegDst_o, CPU.ID_EX.ALUSrc_o, CPU.mux6.data_o, CPU.mux7.data_o, CPU.mux3.data_o);
+$fdisplay(outfile, "Fwd: mux6 = %d, mux7 = %d, IDEX_rs = %d, IDEX_rt = %d", CPU.FW.forward_MUX6, CPU.FW.forward_MUX7, CPU.FW.IDEX_rs, CPU.FW.IDEX_rt);
 $fdisplay(outfile, "");
 
     // print PC

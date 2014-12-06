@@ -68,6 +68,7 @@ PC PC(
     .clk_i      (clk_i),
     .rst_i      (rst_i),
     .start_i    (start_i),
+    .select_i   (bubble_o),
     .pc_i       (pc_i),
     .pc_o       (pc_o)
 );

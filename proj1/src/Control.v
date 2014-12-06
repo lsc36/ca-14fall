@@ -23,7 +23,7 @@ assign MemRead_o    = Op_i[5] & ~Op_i[3];
 assign MemWrite_o   = Op_i[5] & Op_i[3];
 assign RegWrite_o   = ~(Op_i[5] & Op_i[3]);
 assign MemToReg_o   = Op_i[5] & ~Op_i[3];
-assign Jump_o       = Op_i[1];
-assign Branch_o     = Op_i[2];
+assign Jump_o       = (Op_i == 6'b000010) ? 1 : 0;
+assign Branch_o     = (Op_i == 6'b000100) ? 1 : 0;
 
 endmodule

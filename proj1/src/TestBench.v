@@ -63,6 +63,8 @@ always@(posedge Clk) begin
     if(CPU.HazardDetection.bubble_o == 1 && CPU.Control.Jump_o == 0 && CPU.Control.Branch_o == 0)stall = stall + 1;
     if(CPU.IF_ID.Flush1_i == 1 || CPU.IF_ID.Flush2_i == 1)flush = flush + 1;
 
+$fdisplay(outfile, "\n\n\n\n\n\n\n");
+
 $fdisplay(outfile, "Add_PC_o = %d, mux1 = %d, mux2 = %d, bubble_o = %d", CPU.Add_PC.data_o, CPU.mux1.data_o, CPU.mux2.data_o, CPU.bubble_o);
 $fdisplay(outfile, "hazard: %x %x %x %x", CPU.HazardDetection.IF_ID_rs_i, CPU.HazardDetection.IF_ID_rt_i, CPU.HazardDetection.ID_EX_rt_i, CPU.HazardDetection.ID_EX_MemRead_i);
 $fdisplay(outfile, "IF_ID:");
@@ -71,8 +73,11 @@ $fdisplay(outfile, "mux8_out = %b", CPU.mux8.data_o);
 $fdisplay(outfile, "imm32 = %b", CPU.imm32);
 $fdisplay(outfile, "Control: %b jump: %d branch: %d", CPU.ctrl[7:0], CPU.Control.Jump_o, CPU.Control.Branch_o);
 $fdisplay(outfile, "ID_EX:");
-$fdisplay(outfile, "RegDst = %d, ALUSrc = %d , mux6_out = %x, mux7_out = %x, mux3_out = %x", CPU.ID_EX.RegDst_o, CPU.ID_EX.ALUSrc_o, CPU.mux6.data_o, CPU.mux7.data_o, CPU.mux3.data_o);
-$fdisplay(outfile, "Fwd: mux6 = %d, mux7 = %d, IDEX_rs = %d, IDEX_rt = %d", CPU.FW.forward_MUX6, CPU.FW.forward_MUX7, CPU.FW.IDEX_rs, CPU.FW.IDEX_rt);
+$fdisplay(outfile, "RegDst = %d, ALUSrc = %d , mux6_out = %d, mux7_out = %d, mux4_out = %d, mux3_out = %b, ALU_out = %d", CPU.ID_EX.RegDst_o, CPU.ID_EX.ALUSrc_o, CPU.mux6.data_o, CPU.mux7.data_o, CPU.mux4.data_o, CPU.mux3.data_o, CPU.alu_o);
+$fdisplay(outfile, "Fwd: mux6 = %d, mux7 = %d, IDEX_rs = %d, IDEX_rt = %d, EXMEM_rd = %d, MEMWB_rd = %d", CPU.FW.forward_MUX6, CPU.FW.forward_MUX7, CPU.FW.IDEX_rs, CPU.FW.IDEX_rt, CPU.FW.EXMEM_rd, CPU.FW.MEMWB_rd);
+$fdisplay(outfile, "EX_MEM:");
+$fdisplay(outfile, "");
+
 $fdisplay(outfile, "");
 
     // print PC

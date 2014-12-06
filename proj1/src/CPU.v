@@ -49,7 +49,7 @@ Control Control(
     .RegWrite_o (ctrl[1]),
     .MemToReg_o (ctrl[0]),
     .Jump_o     (ctrl_jump),
-    .Branch_o   (mux1.select2_i)
+    .Branch_o   ()
 );
 
 Adder Add_PC(
@@ -61,7 +61,7 @@ Adder Add_PC(
 Adder ADD(
     .data1_in   (IF_ID_addr),
     .data2_in   (sl32.data_o),
-    .data_o     (mux1.data1_i)
+    .data_o     ()
 );
 
 PC PC(
@@ -79,7 +79,7 @@ Instruction_Memory Instruction_Memory(
 );
 
 Data_Memory Data_Memory(
-    .read_data_o    (MEM_WB.in1),
+    .read_data_o    (),
     .address_i      (EX_MEM_in1),
     .write_data_i   (EX_MEM.in2_out),
     .MemRead_i      (EX_MEM.mem_read),
@@ -126,8 +126,8 @@ HazardDetection HazardDetection(
 
 FW FW
 (
-    .forward_MUX6   (mux6.select_i),
-    .forward_MUX7   (mux7.select_i),
+    .forward_MUX6   (),
+    .forward_MUX7   (),
     .IDEX_rs        (ID_EX.FW_o1),
     .IDEX_rt        (ID_EX.FW_o2),
     .EXMEM_rd       (EX_MEM_in3),
@@ -139,7 +139,7 @@ FW FW
 EQUAL Eq(
     .data1_i    (rsData_o),
     .data2_i    (rtData_o),
-    .data_o     (mux1.select1_i)
+    .data_o     ()
 );
 
 Shift_Left2_26 sl26(
@@ -149,7 +149,7 @@ Shift_Left2_26 sl26(
 
 Shift_Left2_32 sl32(
     .data_i (imm32),
-    .data_o (ADD.data2_in)
+    .data_o ()
 );
 
 IF_ID IF_ID
@@ -173,19 +173,19 @@ ID_EX ID_EX
     .data2_i(rtData_o),
     .Sign_extend_i(imm32),
     .instr_i(IF_ID_instr),
-    .EX_MEM_WB_o(EX_MEM.wb),
+    .EX_MEM_WB_o(),
     .EX_MEM_M_o(ID_EX_M),
-    .ALUSrc_o(mux4.select_i),
-    .ALUOp_o(ALU_Control.ALUOp_i),
-    .RegDst_o(mux3.select_i),
-    .mux6_o(mux6.data1_i),
-    .mux7_o(mux7.data1_i),
+    .ALUSrc_o(),
+    .ALUOp_o(),
+    .RegDst_o(),
+    .mux6_o(),
+    .mux7_o(),
     .mux4_o(ID_EX_mux4_out),
     .ALU_control_o(),
-    .FW_o1(FW.IDEX_rs),
-    .FW_o2(FW.IDEX_rt),
+    .FW_o1(),
+    .FW_o2(),
     .mux3_o1(ID_EX_mux3_o1),
-    .mux3_o2(mux3.data2_i)
+    .mux3_o2()
 );
 
 EX_MEM EX_MEM
@@ -197,10 +197,10 @@ EX_MEM EX_MEM
     .in2(mux7_data_o),
     .in3(mux3.data_o),
     .wb_out(EX_MEM_wb),
-    .mem_read(Data_Memory.MemRead_i),
-    .mem_write(Data_Memory.MemWrite_i),
+    .mem_read(),
+    .mem_write(),
     .in1_out(EX_MEM_in1),
-    .in2_out(Data_Memory.write_data_i),
+    .in2_out(),
     .in3_out(EX_MEM_in3)
 );
 
@@ -212,15 +212,15 @@ MEM_WB MEM_WB
     .in2(EX_MEM_in1),
     .in3(EX_MEM_in3),
     .reg_write(MEM_WB_RegWrite),
-    .mem_to_reg(mux5.select_i),
-    .in1_out(mux5.data1_i),
-    .in2_out(mux5.data2_i),
+    .mem_to_reg(),
+    .in1_out(),
+    .in2_out(),
     .in3_out(MEM_WB_in3)
 );
 
 MUXAND mux1(
     .data_o     (mux1_out),
-    .cond_o     (IF_ID.Flush1_i),
+    .cond_o     (),
     .data1_i    (ADD.data_o),
     .data2_i    (Add_PC_o),
     .select1_i   (Eq.data_o),
@@ -235,14 +235,14 @@ MUX32 mux2(
 );
 
 MUX5 mux3(
-    .data_o     (EX_MEM.in3),
+    .data_o     (),
     .data1_i    (ID_EX_mux3_o1),
     .data2_i    (ID_EX.mux3_o2),
     .select_i   (ID_EX.RegDst_o)
 );
 
 MUX32 mux4(
-    .data_o     (ALU.data2_i),
+    .data_o     (),
     .data1_i    (mux7_data_o),
     .data2_i    (ID_EX_mux4_out),
     .select_i   (ID_EX.ALUSrc_o)
@@ -256,7 +256,7 @@ MUX32 mux5(
 );
 
 MUX32_3 mux6(
-    .data_o     (ALU.data1_i),
+    .data_o     (),
     .data1_i    (ID_EX.mux6_o),
     .data2_i    (mux5_out),
     .data3_i    (EX_MEM_in1),

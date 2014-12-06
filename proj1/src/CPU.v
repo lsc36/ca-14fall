@@ -60,8 +60,8 @@ Data_Memory Data_Memory(
     .read_data_o    (),
     .address_i      (),
     .write_data_i   (),
-    .memread_i      (),
-    .memwrite_i     ()
+    .MemRead_i      (),
+    .MemWrite_i     ()
 );
 
 Registers Registers(

@@ -51,6 +51,14 @@ Instruction_Memory Instruction_Memory(
     .instr_o    (instr_o)
 );
 
+Data_Memory Data_Memory(
+    .read_data_o    (),
+    .address_i      (),
+    .write_data_i   (),
+    .memread_i      (),
+    .memwrite_i     ()
+);
+
 Registers Registers(
     .clk_i      (clk_i),
     .RSaddr_i   (instr_o[25:21]),

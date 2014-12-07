@@ -28,7 +28,17 @@ initial begin
 end
 
 always@(posedge clk) begin
-    if(HD_i == 1 | Flush1_i | Flush2_i)
+    if(HD_i)
+    begin
+        instr_o <= 0;
+        addr_o <= 0;
+    end
+    else if(Flush1_i)
+    begin
+        instr_o <= 0;
+        addr_o <= 0;
+    end
+    else if(Flush2_i)
     begin
         instr_o <= 0;
         addr_o <= 0;

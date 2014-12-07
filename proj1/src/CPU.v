@@ -17,7 +17,6 @@ wire    [31:0]      imm32;
 wire    [31:0]      rsData_o;
 wire    [31:0]      rtData_o;
 wire    [31:0]      aluSrc_o;
-wire    [2:0]       aluCtrl_o;
 wire    [31:0]      alu_o;
 wire    [31:0]      ctrl;
 wire                ctrl_jump;
@@ -105,7 +104,7 @@ Signed_Extend Signed_Extend(
 ALU ALU(
     .data1_i    (mux6.data_o),
     .data2_i    (mux4.data_o),
-    .ALUCtrl_i  (aluCtrl_o),
+    .ALUCtrl_i  (ALU_Control.ALUCtrl_o),
     .data_o     (alu_o),
     .Zero_o     ()
 );
@@ -113,7 +112,7 @@ ALU ALU(
 ALU_Control ALU_Control(
     .funct_i    (ID_EX_mux4_out[5:0]),
     .ALUOp_i    (ID_EX.ALUOp_o),
-    .ALUCtrl_o  (aluCtrl_o)
+    .ALUCtrl_o  ()
 );
 
 HazardDetection HazardDetection(

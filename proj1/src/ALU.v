@@ -22,6 +22,7 @@ always@(data1_i or data2_i or ALUCtrl_i) begin
         3'b010: data_o = data1_i + data2_i;  // add
         3'b011: data_o = data1_i - data2_i;  // sub
         3'b100: data_o = data1_i * data2_i;  // mul
+        3'b111: data_o = 0;  // nop (sll)
         default: data_o = 32'bx;
     endcase
     Zero_o = data_o == 0 ? 1'b1 : 1'b0;

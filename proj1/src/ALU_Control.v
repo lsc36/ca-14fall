@@ -20,6 +20,7 @@ always@(funct_i or ALUOp_i) begin
                 6'b100000: ALUCtrl_o = 3'b010;  // add
                 6'b100010: ALUCtrl_o = 3'b011;  // sub
                 6'b011000: ALUCtrl_o = 3'b100;  // mul
+                6'b000000: ALUCtrl_o = 3'b111;  // nop (sll)
             endcase
         2'b00:  // I-type
             ALUCtrl_o = 3'b010;  // addi, lw, sw

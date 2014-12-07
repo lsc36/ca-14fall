@@ -26,8 +26,6 @@ end
 
 always @ (*)
 begin
-    ALUOp_o = 2'b00;
-
     case(Op_i)
         default: begin //???
             RegDst_o = 0;
@@ -38,6 +36,7 @@ begin
             MemRead_o = 0;
             Branch_o = 0;
             Jump_o = 0;
+            ALUOp_o = 2'b00;
         end
         6'h8: begin //addi
             RegDst_o = 0;
@@ -48,6 +47,7 @@ begin
             MemRead_o = 0;
             Branch_o = 0;
             Jump_o = 0;
+            ALUOp_o = 2'b00;
         end
         6'h0: begin //add,sub
             RegDst_o = 1;
@@ -58,6 +58,7 @@ begin
             MemRead_o = 0;
             Branch_o = 0;
             Jump_o = 0;
+            ALUOp_o = 2'b10;
         end
         6'h23: begin //lw
             RegDst_o = 0;
@@ -68,7 +69,7 @@ begin
             MemRead_o = 1;
             Branch_o = 0;
             Jump_o = 0;
-            ALUOp_o = 2'b01;
+            ALUOp_o = 2'b00;
         end
         6'h2b: begin //sw
             RegDst_o = 1'bx;
@@ -79,9 +80,9 @@ begin
             MemRead_o = 0;
             Branch_o = 0;
             Jump_o = 0;
-            ALUOp_o = 2'b01;
+            ALUOp_o = 2'b00;
         end
-        6'h4: begin
+        6'h4: begin //beq
             RegDst_o = 1'bx;
             ALUSrc_o = 0;
             MemToReg_o = 1'bx;
@@ -90,6 +91,7 @@ begin
             MemRead_o = 0;
             Branch_o = 1;
             Jump_o = 0;
+            ALUOp_o = 2'bxx;
         end
         6'h2: begin //j
             RegDst_o = 1'bx;
@@ -100,6 +102,7 @@ begin
             MemRead_o = 0;
             Branch_o = 0;
             Jump_o = 1;
+            ALUOp_o = 2'bxx;
         end
     endcase
 

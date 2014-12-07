@@ -30,8 +30,8 @@ end
 always@(posedge clk) begin
     if(HD_i)
     begin
-        instr_o <= 0;
-        addr_o <= 0;
+        instr_o <= instr_o;
+        addr_o <= addr_o;
     end
     else if(Flush1_i)
     begin

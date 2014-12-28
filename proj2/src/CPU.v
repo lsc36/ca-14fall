@@ -98,7 +98,13 @@ Data_Cache Data_Cache(
     .write_data_i   (EX_MEM.in2_out),
     .MemRead_i      (EX_MEM.mem_read),
     .MemWrite_i     (EX_MEM.mem_write),
-    .mem_stall      (mem_stall)
+    .mem_stall      (mem_stall),
+    .mem_data_i     (mem_data_i),
+    .mem_ack_i      (mem_ack_i),
+    .mem_data_o     (mem_data_o),
+    .mem_addr_o     (mem_addr_o),
+    .mem_enable_o   (mem_enable_o),
+    .mem_write_o    (mem_write_o)
 );
 
 Registers Registers(

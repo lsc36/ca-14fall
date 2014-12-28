@@ -93,6 +93,7 @@ always @(posedge mem_ack_i) begin
             mem_stall = 1;
             state = STATE_WRITE_WAIT_ACK_READ;
         end
+        STATE_OK: ;
     endcase
 end
 

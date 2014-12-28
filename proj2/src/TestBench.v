@@ -149,10 +149,13 @@ always@(posedge Clk) begin
         end
         flag = 1'b1;
     end
-    else if(CPU.Data_Cache.MemWrite_i)
-        $fdisplay(outfile2, "Cycle: %d, Write Hit , Address: %h, Write Data: %h", counter, CPU.Data_Cache.address_i, CPU.Data_Cache.write_data_i);
-    else if(CPU.Data_Cache.MemRead_i)
-        $fdisplay(outfile2, "Cycle: %d, Read Hit  , Address: %h, Read Data : %h", counter, CPU.Data_Cache.address_i, CPU.Data_Cache.read_data_o);
+    else begin
+        flag = 1'b0;
+        if(CPU.Data_Cache.MemWrite_i)
+            $fdisplay(outfile2, "Cycle: %d, Write Hit , Address: %h, Write Data: %h", counter, CPU.Data_Cache.address_i, CPU.Data_Cache.write_data_i);
+        else if(CPU.Data_Cache.MemRead_i)
+            $fdisplay(outfile2, "Cycle: %d, Read Hit  , Address: %h, Read Data : %h", counter, CPU.Data_Cache.address_i, CPU.Data_Cache.read_data_o);
+    end
 
 
     counter = counter + 1;

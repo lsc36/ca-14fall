@@ -49,6 +49,7 @@ always @(posedge clk_i or negedge rst_i) begin
             STATE_ACK: begin
                 if (write_i) memory[addr_i >> 5] = data_i;
                 data_o = memory[addr_i >> 5];
+                count = 0;
                 ack_o = 1;
                 state = STATE_FINISH;
             end

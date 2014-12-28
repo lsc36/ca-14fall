@@ -98,7 +98,7 @@ always @(posedge mem_ack_i) begin
 end
 
 always @(address_i or write_data_i or MemRead_i or MemWrite_i) begin
-    if (~mem_stall) begin
+    if (state == STATE_OK) begin
         if (MemRead_i) begin
             if (~cache_tag[index][23] || cache_tag[index][21:0] != tag) begin  // cache miss
                 if (cache_tag[index][22]) begin  // dirty flag set

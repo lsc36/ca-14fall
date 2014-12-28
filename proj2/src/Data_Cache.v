@@ -1,5 +1,6 @@
 module Data_Cache
 (
+    clk_i,
     read_data_o,
     address_i,
     write_data_i,
@@ -15,6 +16,7 @@ module Data_Cache
     mem_write_o
 );
 
+input           clk_i;
 input   [31:0]  address_i, write_data_i;
 input           MemRead_i, MemWrite_i;
 output  [31:0]  read_data_o;
@@ -97,7 +99,8 @@ always @(posedge mem_ack_i) begin
     endcase
 end
 
-always @(address_i or write_data_i or MemRead_i or MemWrite_i) begin
+always @(posedge clk_i) begin
+    #1;  // XXX: wait for signal propagate
     if (state == STATE_OK) begin
         if (MemRead_i) begin
             if (~cache_tag[index][23] || cache_tag[index][21:0] != tag) begin  // cache miss

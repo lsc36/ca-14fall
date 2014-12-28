@@ -93,6 +93,7 @@ Instruction_Memory Instruction_Memory(
 );
 
 Data_Cache Data_Cache(
+    .clk_i          (clk_i),
     .read_data_o    (),
     .address_i      (EX_MEM_in1),
     .write_data_i   (EX_MEM.in2_out),

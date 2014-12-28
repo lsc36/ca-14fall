@@ -2,13 +2,26 @@ module CPU
 (
     clk_i,
     rst_i,
-    start_i
+    start_i,
+
+    mem_data_i,
+    mem_ack_i,
+    mem_data_o,
+    mem_addr_o,
+    mem_enable_o,
+    mem_write_o
 );
 
 // Ports
 input               clk_i;
 input               rst_i;
 input               start_i;
+input   [255:0]     mem_data_i;
+input               mem_ack_i;
+input   [255:0]     mem_data_o;
+input   [31:0]      mem_addr_o;
+input               mem_enable_o;
+input               mem_write_o;
 
 wire    [31:0]      pc_i, pc_o, Add_PC_o;
 wire    [31:0]      instr_o;
@@ -77,7 +90,7 @@ Instruction_Memory Instruction_Memory(
     .instr_o    (instr_o)
 );
 
-Data_Memory Data_Memory(
+Data_Cache Data_Cache(
     .read_data_o    (),
     .address_i      (EX_MEM_in1),
     .write_data_i   (EX_MEM.in2_out),
@@ -207,7 +220,7 @@ MEM_WB MEM_WB
 (
     .clk(clk_i),
     .wb(EX_MEM_wb),
-    .in1(Data_Memory.read_data_o),
+    .in1(Data_Cache.read_data_o),
     .in2(EX_MEM_in1),
     .in3(EX_MEM_in3),
     .reg_write(MEM_WB_RegWrite),

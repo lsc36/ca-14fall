@@ -7,7 +7,8 @@ module IF_ID
     Flush1_i,
     Flush2_i,
     instr_o,//Instruction.
-    addr_o    //Back to PC_address
+    addr_o,    //Back to PC_address
+    mem_stall,
 );
 
 input           clk;
@@ -16,6 +17,7 @@ input   [31:0]  Add_pc_i;
 input   [31:0]  Instruction_Memory_i;
 input           Flush1_i;
 input           Flush2_i;
+input           mem_stall;
 output  [31:0]  instr_o;
 output    [31:0]    addr_o;
 
@@ -28,7 +30,7 @@ initial begin
 end
 
 always@(posedge clk) begin
-    if(HD_i)
+    if(HD_i | mem_stall)
     begin
         instr_o <= instr_o;
         addr_o <= addr_o;

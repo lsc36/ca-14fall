@@ -36,6 +36,7 @@ wire                ctrl_jump;
 wire    [27:0]      sl26_o;
 
 wire                bubble_o;
+wire                mem_stall;
 wire    [31:0]      IF_ID_instr;
 wire    [31:0]      IF_ID_addr;
 wire    [ 1:0]      ID_EX_M;
@@ -82,7 +83,8 @@ PC PC(
     .start_i    (start_i),
     .select_i   (bubble_o),
     .pc_i       (pc_i),
-    .pc_o       (pc_o)
+    .pc_o       (pc_o),
+    .mem_stall  (mem_stall)
 );
 
 Instruction_Memory Instruction_Memory(
@@ -95,7 +97,8 @@ Data_Cache Data_Cache(
     .address_i      (EX_MEM_in1),
     .write_data_i   (EX_MEM.in2_out),
     .MemRead_i      (EX_MEM.mem_read),
-    .MemWrite_i     (EX_MEM.mem_write)
+    .MemWrite_i     (EX_MEM.mem_write),
+    .mem_stall      (mem_stall)
 );
 
 Registers Registers(
@@ -173,7 +176,8 @@ IF_ID IF_ID
     .Flush1_i(mux1.cond_o),
     .Flush2_i(ctrl_jump),
     .instr_o(IF_ID_instr),
-    .addr_o(IF_ID_addr)
+    .addr_o(IF_ID_addr),
+    .mem_stall(mem_stall)
 );
 
 ID_EX ID_EX
@@ -197,7 +201,8 @@ ID_EX ID_EX
     .FW_o1(),
     .FW_o2(),
     .mux3_o1(ID_EX_mux3_o1),
-    .mux3_o2()
+    .mux3_o2(),
+    .mem_stall(mem_stall)
 );
 
 EX_MEM EX_MEM
@@ -213,7 +218,8 @@ EX_MEM EX_MEM
     .mem_write(),
     .in1_out(EX_MEM_in1),
     .in2_out(),
-    .in3_out(EX_MEM_in3)
+    .in3_out(EX_MEM_in3),
+    .mem_stall(mem_stall)
 );
 
 MEM_WB MEM_WB
@@ -227,7 +233,8 @@ MEM_WB MEM_WB
     .mem_to_reg(),
     .in1_out(),
     .in2_out(),
-    .in3_out(MEM_WB_in3)
+    .in3_out(MEM_WB_in3),
+    .mem_stall(mem_stall)
 );
 
 MUXAND mux1(

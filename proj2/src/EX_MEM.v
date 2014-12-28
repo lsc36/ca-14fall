@@ -11,13 +11,15 @@ module EX_MEM
     mem_write,
     in1_out,
     in2_out,
-    in3_out
+    in3_out,
+    mem_stall,
 );
 
 input           clk;
 input   [1:0]   m,wb;
 input   [31:0]  in1,in2;
 input   [4:0]   in3;
+input           mem_stall;
 
 output          mem_read, mem_write;
 output  [1:0]   wb_out;
@@ -40,12 +42,14 @@ end
 
 always @( posedge clk ) begin
     //m_out <= m;
-    mem_read  <= (m & 2'b10) ? 1'b1 : 1'b0;
-    mem_write <= (m & 2'b01) ? 1'b1 : 1'b0;
-    wb_out <= wb;
-    in1_out <= in1;
-    in2_out <= in2;
-    in3_out <= in3;
+    if(~mem_stall) begin
+        mem_read  <= (m & 2'b10) ? 1'b1 : 1'b0;
+        mem_write <= (m & 2'b01) ? 1'b1 : 1'b0;
+        wb_out <= wb;
+        in1_out <= in1;
+        in2_out <= in2;
+        in3_out <= in3;
+    end
 end
 
 endmodule
